@@ -102,6 +102,40 @@ work_df['TRDAR_CD'] = work_df['TRDAR_CD'].astype(str)
 
 merged_df = pd.merge(work_df, area_selected, on='TRDAR_CD', how='left')
 
+# 컬럼명 한국어(필요없을시 주석처리 무관)
+column_rename_dict = {
+    'STDR_YYQU_CD': '기준년도분기',
+    'TRDAR_SE_CD': '상권구분코드',
+    'TRDAR_SE_CD_NM': '상권구분명',
+    'TRDAR_CD': '상권코드',
+    'TRDAR_CD_NM': '상권명',
+    'TOT_WRC_POPLTN_CO': '총직장인구수',
+    'ML_WRC_POPLTN_CO': '남성직장인구수',
+    'FML_WRC_POPLTN_CO': '여성직장인구수',
+    'AGRDE_10_WRC_POPLTN_CO': '10대직장인구수',
+    'AGRDE_20_WRC_POPLTN_CO': '20대직장인구수',
+    'AGRDE_30_WRC_POPLTN_CO': '30대직장인구수',
+    'AGRDE_40_WRC_POPLTN_CO': '40대직장인구수',
+    'AGRDE_50_WRC_POPLTN_CO': '50대직장인구수',
+    'AGRDE_60_ABOVE_WRC_POPLTN_CO': '60대이상직장인구수',
+    'MAG_10_WRC_POPLTN_CO': '남성10대직장인구수',
+    'MAG_20_WRC_POPLTN_CO': '남성20대직장인구수',
+    'MAG_30_WRC_POPLTN_CO': '남성30대직장인구수',
+    'MAG_40_WRC_POPLTN_CO': '남성40대직장인구수',
+    'MAG_50_WRC_POPLTN_CO': '남성50대직장인구수',
+    'MAG_60_ABOVE_WRC_POPLTN_CO': '남성60대이상직장인구수',
+    'FAG_10_WRC_POPLTN_CO': '여성10대직장인구수',
+    'FAG_20_WRC_POPLTN_CO': '여성20대직장인구수',
+    'FAG_30_WRC_POPLTN_CO': '여성30대직장인구수',
+    'FAG_40_WRC_POPLTN_CO': '여성40대직장인구수',
+    'FAG_50_WRC_POPLTN_CO': '여성50대직장인구수',
+    'FAG_60_ABOVE_WRC_POPLTN_CO': '여성60대이상직장인구수',
+    'SIGNGU_CD_NM': '자치구',
+    'ADSTRD_CD_NM': '행정동'
+}
+
+merged_df.rename(columns=column_rename_dict, inplace=True)
+
 # 결과 확인
 # merged_df
 merged_df.to_csv('서울시_직장인구_상권_위치포함.csv', index=False)
