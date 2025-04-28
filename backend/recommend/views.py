@@ -5,9 +5,9 @@ from django.http import JsonResponse
 from .utils import recommend, generate_report_from_input
 from django.views.decorators.csrf import csrf_exempt
 from pickon_kafka.producer import send_log_to_kafka
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-
+from rest_framework.permissions import IsAuthenticated
 # Redis 연결
 r = redis.Redis(host='redis', port=6379, db=0)
 
@@ -34,6 +34,7 @@ def get_hot_topics(request):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def recommend_view(request):
     try:
         body = request.data
