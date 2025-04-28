@@ -1,9 +1,14 @@
-from django.urls import path, include
-from .views import NaverLogin, LogoutView, KakaoLogin
-
+from django.urls import path
+from .views import (
+    KakaoLoginRedirect, NaverLoginRedirect,
+    KakaoLoginCallback, NaverLoginCallback,
+    SocialLoginTokenView
+)
 
 urlpatterns = [
-    path('naver/login/', NaverLogin.as_view(), name='naver_login'),
-    path('kakao/login/', KakaoLogin.as_view(), name='kakao_login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('kakao/login/start/', KakaoLoginRedirect.as_view()),
+    path('naver/login/start/', NaverLoginRedirect.as_view()),
+    path('kakao/callback/', KakaoLoginCallback.as_view()),
+    path('naver/callback/', NaverLoginCallback.as_view()),
+    path('social/token/', SocialLoginTokenView.as_view()),
 ]
