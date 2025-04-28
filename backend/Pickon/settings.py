@@ -90,6 +90,10 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+CORS_ALLOWED_ORIGINS = [
+    "http://13.209.241.181:3000",
+]
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
