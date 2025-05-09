@@ -1,0 +1,14 @@
+Django>=4.2
+xgboost
+pandas
+scikit-learn
+djangorestframework
+django-cors-headers
+kafka-python>=2.0.2
+boto3
+python-dotenv
+redis
+djangorestframework-simplejwt
+django-allauth
+dj-rest-auth
+requests
