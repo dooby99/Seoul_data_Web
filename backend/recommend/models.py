@@ -1,3 +1,4 @@
+#recommend/models.py
 from django.db import models
 
 class RecommendationLog(models.Model):

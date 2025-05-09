@@ -8,9 +8,24 @@ from django.core.exceptions import ImproperlyConfigured
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework import status, views
+from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 from rest_framework.permissions import IsAuthenticated
+
+# --- 로그아웃 ---
+class LogoutView(views.APIView):
+    def post(self, request):
+        refresh_token = request.data.get("refresh")
+        if not refresh_token:
+            return Response({"error": "Refresh token is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+        except TokenError:
+            return Response({"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({"detail": "Logout successful"}, status=status.HTTP_200_OK)
 
 # --- 리다이렉트용: 소셜 로그인 화면 이동 ---
 class KakaoLoginRedirect(APIView):
@@ -145,4 +160,10 @@ class SocialLoginTokenView(APIView):
         return Response({
             "access": str(refresh.access_token),
             "refresh": str(refresh),
+            "user": {
+                "id": user.id,
+                "username": user.username,
+                "nickname": user.first_name,  # 너가 defaults로 넣은 값
+                "email": user.email,
+            }
         }, status=200)

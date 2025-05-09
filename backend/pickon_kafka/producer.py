@@ -24,6 +24,8 @@ def send_log_to_kafka(user_input):
             "category": user_input["서비스_업종_코드_명"],
             "gender": user_input["성별"],
             "age": user_input["연령대"],
+            # "success_prob": result["success_prob"],
+            # "status": result["recommendation"],
             "timestamp": datetime.now().isoformat()
         }
         producer = get_producer()  # ✅ producer를 한번만 호출

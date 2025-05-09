@@ -8,6 +8,7 @@ from pickon_kafka.producer import send_log_to_kafka
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+
 # Redis 연결
 r = redis.Redis(host='redis', port=6379, db=0)
 

@@ -1,6 +1,9 @@
+# board/views.py
+
 from rest_framework import generics
 from .models import Board
 from .serializers import BoardSerializer
+from .permissions import IsAuthorOrReadOnly
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 class BoardListCreateView(generics.ListCreateAPIView):
@@ -13,4 +16,4 @@ class BoardListCreateView(generics.ListCreateAPIView):
 class BoardRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]  # 여기 추가!

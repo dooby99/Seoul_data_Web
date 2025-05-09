@@ -6,6 +6,9 @@ import redis
 from kafka import KafkaConsumer
 from kafka.errors import NoBrokersAvailable
 from pickon_kafka.config import KAFKA_BOOTSTRAP_SERVERS, REDIS_HOST, REDIS_PORT
+# from recommend.models import RecommendationLog
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
+# django.setup()
 
 MAX_RETRIES = 10
 WAIT_SECONDS = 5
@@ -62,6 +65,19 @@ def aggregate_log():
                     r.zincrby("hot:age", 1, age)
 
                 print("🔥 Logged:", data)
+
+                # ✅ RDS (PostgreSQL) 저장
+                # RecommendationLog.objects.create(
+                #     gu=gu,
+                #     dong=dong,
+                #     area_type=area_type,
+                #     category=category,
+                #     gender=gender,
+                #     age=age,
+                #     success_prob=success_prob,
+                #     status=status
+                # )
+                # print("✅ Saved to RDS")
         except Exception as e:
             print(f"❗ Error in consumer: {e}")
         finally:
